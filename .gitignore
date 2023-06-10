@@ -1,0 +1,3 @@
+build/
+target/ # i usually use this name for the build directory
+.vscode/
