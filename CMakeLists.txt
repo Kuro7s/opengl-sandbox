@@ -2,18 +2,22 @@ cmake_minimum_required(VERSION 3.28.1)
 
 project(learning-opengl VERSION 0.1.0)
 
-add_subdirectory(lib/glfw)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+add_subdirectory(third_party/glfw)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 
-file(
-    GLOB VENDORS_SOURCES
-    lib/glew/src/glew.c
-    lib/imgui/backends/imgui_impl_glfw.cpp
-    lib/imgui/backends/imgui_impl_opengl3.cpp
-    lib/imgui/imgui*.cpp)
+file(GLOB THIRD_PARTY_SRCS
+    third_party/glew/src/glew.c
+    third_party/imgui/backends/imgui_impl_glfw.cpp
+    third_party/imgui/backends/imgui_impl_opengl3.cpp
+    third_party/imgui/imgui*.cpp)
 
-add_executable(gl-sandbox ${VENDORS_SOURCES} src/main.cc)
+file(GLOB ALL_SRCS src/**.cc)
+
+add_executable(gl-sandbox ${THIRD_PARTY_SRCS} ${ALL_SRCS})
 
 target_link_libraries(gl-sandbox glfw opengl32)
 
