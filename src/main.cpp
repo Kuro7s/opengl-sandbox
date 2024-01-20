@@ -1,24 +1,25 @@
-// Dear ImGui: standalone example application for GLFW + OpenGL 3, using programmable pipeline
-// (GLFW is a cross-platform general purpose library for handling windows, inputs, OpenGL/Vulkan/Metal graphics context creation, etc.)
-// If you are new to Dear ImGui, read documentation from the docs/ folder + read the top of imgui.cpp.
-// Read online: https://github.com/ocornut/imgui/tree/master/docs
+#include <stdint.h>
+#include <stdio.h>
 
+#include <array>
+#include <iostream>
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include <stdint.h>
-#include <stdio.h>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <array>
 
-static void glfw_error_callback(int error, const char* description) {
+static void glfw_error_callback(int error, const char* description)
+{
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit()) {
+    if (!glfwInit())
+    {
         return 1;
     }
 
@@ -28,12 +29,14 @@ int main(int argc, char** argv) {
 
     // Create window with graphics context
     GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", NULL, NULL);
-    if (window == NULL) {
+    if (window == NULL)
+    {
         return 1;
     }
 
     glfwMakeContextCurrent(window);
-    if (glewInit() != GLEW_OK) {
+    if (glewInit() != GLEW_OK)
+    {
         fprintf(stderr, "Glew failed to initialize\n");
         return 1;
     }
@@ -58,7 +61,7 @@ int main(int argc, char** argv) {
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    std::array<float, 6> data = {
+    std::array<float, 6> data ={
         -0.5f, -0.5f,
         0.0f, 0.5f,
         0.0f, -0.5f
@@ -70,7 +73,8 @@ int main(int argc, char** argv) {
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * data.size(), data.data(), GL_STATIC_DRAW);
 
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(window))
+    {
         glfwPollEvents();
 
         ImGui_ImplOpenGL3_NewFrame();
@@ -79,7 +83,10 @@ int main(int argc, char** argv) {
 
         ImGui::Begin("Dear ImGui window");
         ImGui::ColorEdit3("Clear color", (float*)&clear_color);
-        if (ImGui::Button("Close window")) {
+
+        if (ImGui::Button("Close window"))
+	{
+	
             glfwSetWindowShouldClose(window, 1);
         }
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
