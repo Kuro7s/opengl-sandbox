@@ -10,15 +10,13 @@ static void glfw_error_callback(int error, const char* description) {
     util::die("GLFW Error (%d) %s", error, description);
 }
 
-
-
 Window::Window(Window_Info info)
     : info(info),
       native_window_handle(nullptr) {
 
-    static int WINDOW_COUNT = 0;
+    static int window_count = 0;
 
-    if (WINDOW_COUNT != 0) util::die("Only one window is allowed, for now...");
+    if (window_count != 0) util::die("You can create a window only once!");
 
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit()) util::die("Failed to initialize GLFW!");
@@ -26,7 +24,7 @@ Window::Window(Window_Info info)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
-    WINDOW_COUNT++;
+    window_count++;
 }
 
 Window::~Window() {
@@ -49,7 +47,6 @@ void Window::create() {
 
     glfwSwapInterval(info.vsync_enabled);
 }
-
 
 void Window::swap_buffers() {
     glfwSwapBuffers((GLFWwindow*)native_window_handle);
