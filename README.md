@@ -1,2 +1,2 @@
-# gfx-sandbox
-idk, i'm just following Cherno's series
+# OpenGL Sandbox
+Just my opengl sandbox.

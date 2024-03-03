@@ -15,15 +15,13 @@ file(GLOB THIRD_PARTY_SRCS
     third_party/imgui/backends/imgui_impl_opengl3.cpp
     third_party/imgui/imgui*.cpp)
 
-file(GLOB ALL_SRCS src/**.cc)
+file(GLOB ALL_SRCS src/**.cpp)
 
-add_executable(gl-sandbox ${THIRD_PARTY_SRCS} ${ALL_SRCS})
+add_executable(opengl-sandbox ${THIRD_PARTY_SRCS} ${ALL_SRCS})
 
-target_link_libraries(gl-sandbox glfw opengl32)
-
-target_compile_definitions(gl-sandbox PUBLIC GLEW_STATIC)
-
-target_include_directories(gl-sandbox PUBLIC
+target_link_libraries(opengl-sandbox glfw opengl32)
+target_compile_definitions(opengl-sandbox PUBLIC GLEW_STATIC)
+target_include_directories(opengl-sandbox PUBLIC
     third_party/glew/include
     third_party/glfw/include
     third_party/imgui/
